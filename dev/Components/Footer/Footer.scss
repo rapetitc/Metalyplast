@@ -1,0 +1,19 @@
+footer {
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  background-color: antiquewhite;
+
+  p{
+    margin: 5px 0;
+
+    a{
+      color: initial;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

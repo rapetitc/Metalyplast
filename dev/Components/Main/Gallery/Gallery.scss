@@ -1,0 +1,202 @@
+.gallery-container {
+  width: 100%;
+  //background-color: antiquewhite;
+  overflow-y: hidden;
+
+  div.img-preview {
+    display: flex;
+    position: fixed; //fixed
+    top: 0%;
+    left: 0%;
+    opacity: 0;
+
+    height: 100%;
+    width: 100%;
+
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+    transition: all 0.3s;
+
+    div.img-preview-header {
+      display: flex;
+      flex-wrap: wrap;
+      position: absolute;
+      top: 0;
+      justify-content: space-between;
+      padding: 10px;
+      width: 100%;
+      background: rgb(0, 0, 0);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 100%);
+      transition: all 0.3s;
+
+      &:hover {
+        background: linear-gradient(180deg, rgba(0, 0, 0, 1) 25%, rgba(255, 255, 255, 0) 100%);
+      }
+
+      div.counter {
+        width: min-content;
+        font-size: 14px;
+        color: white;
+      }
+      div.buttons {
+        width: max-content;
+
+        button {
+          margin: 0 5px 0 10px;
+          background-color: transparent;
+          border: none;
+          color: white;
+          cursor: pointer;
+          transition: transform 0.2s;
+
+          &:hover {
+            transform: scale(130%);
+          }
+          &:active {
+            transform: scale(80%);
+          }
+        }
+      }
+    }
+    div.img-preview-body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      /* position: relative;
+      top: 50%;
+      right: 50%;
+      bottom: 50%;
+      left: 50%; */
+
+      div.img-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 95%;
+        width: 95%;
+
+        img {
+          object-fit: contain;
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+    }
+    div.img-preview-footer {
+      position: absolute;
+      bottom: 0;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      color: white;
+      background: rgb(0, 0, 0);
+      background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    }
+  }
+  div.gallery-imgs {
+    display: flex;
+    flex-wrap: wrap;
+    width: max-content;
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: hidden;
+
+    div.img {
+      width: 200px;
+
+      div.img-container {
+        margin: 5px;
+        position: relative; /* If you want text inside of it */
+        padding-top: calc(100% - 10px); /* 1:1 Aspect Ratio */
+        width: calc(100% - 10px);
+        border-radius: 10px;
+        background-color: white;
+        overflow: hidden;
+        cursor: pointer;
+
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          min-width: 100%;
+          min-height: 100%;
+          max-width: 120%;
+          max-height: 120%;
+        }
+      }
+    }
+  }
+  div.gallery-buttons {
+    display: none;
+    margin-top: -35px;
+
+    button {
+      position: relative;
+      //top: 50%;
+      margin: 0 5px;
+      height: 35px;
+      width: 35px;
+      color: black;
+      background-color: rgba(128, 128, 128, 0.3);
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+
+      &:nth-of-type(1) {
+        right: 0;
+      }
+      &:nth-of-type(2) {
+        left: 0;
+      }
+
+      &:hover {
+        color: white;
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+      &:active {
+        color: black;
+        background-color: rgba(128, 128, 128, 0.3);
+      }
+    }
+  }
+}
+
+/* @media (min-width: 576px) {
+  .gallery-container {
+    div.gallery-imgs {
+      div.img {
+        width: 33%;
+      }
+    }
+  }
+} */
+
+/* @media (min-width: 768px) {
+  .gallery-container {
+    div.gallery-imgs {
+      div.img {
+        width: 25%;
+      }
+    }
+  }
+} */
+
+/* @media (min-width: 992px) {
+  .gallery-container {
+    div.gallery-imgs {
+      div.img {
+        width: 180px;
+      }
+    }
+  }
+} */
+
+/* @media (min-width: 1200px) {
+} */
+
+/* @media (min-width: 1400px) {
+} */

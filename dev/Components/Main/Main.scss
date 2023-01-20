@@ -1,0 +1,145 @@
+div.section {
+  padding: 10px 0;
+}
+h2.h2 {
+  padding: 7px;
+  font-family: "Times New Roman", "Comfortaa", cursive;
+  font-size: 32px;
+  color: rgba(227, 124, 14, 1);
+  text-align: center;
+}
+h3.h3 {
+  padding: 5px 7px;
+  color: rgba(227, 124, 14, 1);
+  text-align: center;
+}
+p.text {
+  padding: 10px 15px;
+  color: rgb(98, 58, 43);
+  text-indent: 15px;
+  text-align: justify;
+  letter-spacing: 0.7px;
+  line-height: 20px;
+}
+div.social-icons {
+  width: 100%;
+
+  div.social-icons-container {
+    display: block;
+    width: max-content;
+    margin: 0 auto;
+
+    a.social-link {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      color: black;
+      text-decoration: none;
+
+      * {
+        margin: 0 5px;
+      }
+      svg {
+        width: 28px;
+        height: 28px;
+      }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+main {
+  div.aboutus {
+    div.carrousel-container {
+      margin: 10px auto;
+      width: 100%;
+    }
+  }
+  div.contact {
+    div.contact-body {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 5px;
+      width: 100%;
+    }
+
+    #map {
+      position: relative;
+      padding-top: 60%;
+      margin: 15px auto;
+      width: 100%;
+
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (min-width: 576px) {
+  main {
+    div.aboutus {
+      h2.h2 {
+        width: 100%;
+      }
+      div.carrousel-container {
+        width: 90%;
+      }
+    }
+    div.contact {
+      div.contact-body {
+        div.contact-text {
+          width: 60%;
+        }
+        div.social-icons {
+          width: 40%;
+        }
+      }
+      #map {
+        padding-top: 48%;
+        width: 80%;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  main {
+    div.aboutus {
+      display: flex;
+      flex-wrap: wrap;
+
+      div.carrousel-container {
+        width: 50%;
+      }
+
+      div.aboutus-text {
+        width: 50%;
+      }
+    }
+    div.contact {
+      #map {
+        padding-top: 30%;
+        width: 80%;
+      }
+    }
+  }
+}
+
+/* @media (min-width: 992px) {
+} */
+
+/* @media (min-width: 1200px) {
+} */
+
+/* @media (min-width: 1400px) {
+} */
