@@ -1,23 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
+import { getFileFrom } from "../../src/storage";
 import "./Header.scss";
-
-import logo from "../../media/logo.png";
-
-import BehaviorsContext from "../../Context/Behaviors";
 
 const Header = () => {
   const [menuToggle, setMenuToggle] = useState(false);
-
-  const { outerWidth } = useContext(BehaviorsContext);
+  const [logoUrl, setLogoUrl] = useState({});
 
   const handlerMenuToggle = () => {
-    console.log(menuToggle);
     setMenuToggle(!menuToggle);
   };
 
   useEffect(() => {
-    menuToggle || outerWidth >= 768 ? (document.getElementById("header-bar-nav").style.display = "block") : (document.getElementById("header-bar-nav").style.display = "none");
-  }, [menuToggle, outerWidth]);
+    getFileFrom("media/logo.png").then((url) => {
+      setLogoUrl(url);
+    });
+  }, []);
 
   return (
     <header className='header' id='home'>
@@ -29,10 +26,10 @@ const Header = () => {
             </svg>
           </div>
           <div className='header-bar-title'>
-            <img src={logo} alt='Logo' />
+            <img src={logoUrl.url} alt={logoUrl.title} />
             <h1>METALYPLAST</h1>
           </div>
-          <nav className='header-bar-nav' id='header-bar-nav'>
+          <nav className={menuToggle ? "header-bar-nav active" : "header-bar-nav"} id='header-bar-nav'>
             <ul>
               <li>
                 <a href='#home'>Inicio</a>

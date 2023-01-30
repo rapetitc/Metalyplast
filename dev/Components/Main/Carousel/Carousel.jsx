@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Carousel.scss";
 
-import { getAllFilesFrom } from "../../../utilities/gettingFile";
+import { getFilesFrom } from "../../../src/storage";
 
 const Carousel = () => {
   let autoPlay = useRef(false);
@@ -28,7 +28,7 @@ const Carousel = () => {
 
   useEffect(() => {
     if (!isCarrouselCharged) {
-      getAllFilesFrom("slidersImgs", (files) => {
+      getFilesFrom("media/sliderImgs").then((files) => {
         setFiles(files);
       });
 

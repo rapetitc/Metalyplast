@@ -20,19 +20,12 @@ const rulesForSASS = {
 
 // CONFIGURATION
 module.exports = {
-  // MAIN FILE TO PACK
   entry: './dev/index.js',
-
-  // WHERE WILL BE BUNDLED
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, '/build'),
   },
-
-  // EVIROMENT MODE
   mode: process.env.NODE_ENV || 'development',
-
-  // LOADERS CONFIGURATION
   module: {
     rules: [
       rulesForJSX,
@@ -40,29 +33,22 @@ module.exports = {
       rulesForFiles,
     ]
   },
-
-  // HTML TEMPLATER
   plugins: [new HTMLWebpackPlugin({
-    template: './dev/index.html',
+    template: './public/index.html',
     inject: "body",
-    favicon: './dev/favicon.ico',
+    favicon: './public/favicon.ico',
   })],
-
-  // PATH RESOLVE
   resolve: {
     extensions: ['.js', '.json', '.jsx'],
     modules: [
-      path.resolve(__dirname, 'src'),
-      'node_modules'
+      path.resolve(__dirname, '/src'), 'node_modules'
     ]
   },
-
-  // DEV SERVER ENTRY POINT
   devServer: {
     static: {
-      directory: path.join(__dirname, 'src'),
+      directory: path.join(__dirname, '/dev'),
     },
     compress: true,
-    port: 9000,
+    port: 9900,
   },
 }

@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Gallery.scss";
 
-import { getAllFilesFrom } from "../../../utilities/gettingFile";
+import { getFilesFrom } from "../../../src/storage";
 
 const Img = ({ imgInfo, i, handlingImgPreview }) => {
   return (
     <div className='img' onClick={handlingImgPreview}>
       <div className='img-container'>
-        <img src={imgInfo.url} alt={imgInfo.name} />
+        <img src={imgInfo.url} alt={imgInfo.title} />
       </div>
     </div>
   );
@@ -59,7 +59,7 @@ const Gallery = () => {
 
   useEffect(() => {
     if (!isGalleryCompleted.current) {
-      getAllFilesFrom("galleryImgs", (imgsCollection) => {
+      getFilesFrom("media/galleryImgs").then((imgsCollection) => {
         setImgs(imgsCollection);
 
         isGalleryCompleted.current = true;

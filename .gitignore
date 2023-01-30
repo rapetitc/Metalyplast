@@ -70,3 +70,5 @@ node_modules/
 .firebaserc
 storage.rules
 firebase.json
+
+build/
