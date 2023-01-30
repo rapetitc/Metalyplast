@@ -1,86 +1,60 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getFilesFrom } from "../../../src/storage";
 import "./Gallery.scss";
 
-import { getFilesFrom } from "../../../src/storage";
-
-const Img = ({ imgInfo, i, handlingImgPreview }) => {
-  return (
-    <div className='img' onClick={handlingImgPreview}>
-      <div className='img-container'>
-        <img src={imgInfo.url} alt={imgInfo.title} />
-      </div>
-    </div>
-  );
-};
-
 const Gallery = () => {
-  const isGalleryCompleted = useRef(false);
   const [imgs, setImgs] = useState([]);
+  const [imgToShow, setImgToShow] = useState({});
+  const [FSStatus, setFSStatus] = useState(document.fullscreenElement);
 
-  const handlingImgPreview = (active, imgInfo, i) => {
-    const imgPreview = document.getElementsByClassName("img-preview")[0];
-    const imgPreviewHeader = document.getElementsByClassName("img-preview-header")[0];
-    const imgPreviewBody = document.getElementsByClassName("img-preview-body")[0];
-    const imgPreviewFooter = document.getElementsByClassName("img-preview-footer")[0];
-    if (active) {
-      imgPreviewHeader.firstChild.innerHTML = `${i + 1}/${imgs.length}`;
-      imgPreview.style.opacity = "1";
-      imgPreview.style.zIndex = "99";
-      imgPreviewBody.innerHTML = `
-      <div class='img-container'>
-        <img src='${imgInfo.url}' alt='${imgInfo.name}' />
-      </div>
-      `;
-      imgPreviewFooter.innerHTML = imgInfo.name;
+  const handlingImgPreview = (isActive, imgs, i) => {
+    if (isActive) {
+      setImgToShow({ ...imgs[i], current: i + 1, isActive: isActive });
     } else {
-      if (document.fullscreenElement) {
-        document
-          .exitFullscreen()
-          .then(() => console.log("Document Exited from Full screen mode"))
-          .catch((err) => console.error(err));
-      }
-      imgPreview.style.opacity = "0";
-      imgPreview.style.zIndex = "-1";
+      if (document.fullscreenElement) handlingFullScreen();
+      setImgToShow({ isActive: isActive });
     }
   };
 
   const handlingFullScreen = () => {
-    console.log("Trying to full screen");
     const imgPreview = document.getElementsByClassName("img-preview")[0];
-    if (document.fullscreenElement) {
-      document
-        .exitFullscreen()
-        .then(() => console.log("Document Exited from Full screen mode"))
-        .catch((err) => console.error(err));
+    if (FSStatus) {
+      document.exitFullscreen();
+      setFSStatus(false);
     } else {
       imgPreview.requestFullscreen();
+      setFSStatus(true);
     }
   };
 
   useEffect(() => {
-    if (!isGalleryCompleted.current) {
-      getFilesFrom("media/galleryImgs").then((imgsCollection) => {
-        setImgs(imgsCollection);
-
-        isGalleryCompleted.current = true;
-      });
-    }
-  });
+    getFilesFrom("media/galleryImgs").then((imgsCollection) => {
+      setImgs(imgsCollection);
+    });
+  }, []);
 
   return (
-    <div className='gallery-container'>
-      <div className='img-preview'>
+    <div className='Gallery'>
+      <div className={imgToShow.isActive ? "img-preview active" : "img-preview"}>
         <div className='img-preview-header'>
-          <div className='counter'>1/15</div>
+          <div className='counter'>
+            {imgToShow.current}/{imgs.length}
+          </div>
           <div className='buttons'>
             <button
               onClick={() => {
                 handlingFullScreen();
               }}
             >
-              <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' className='bi bi-fullscreen' viewBox='0 0 16 16'>
-                <path d='M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z' />
-              </svg>
+              {FSStatus ? (
+                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' className='bi bi-fullscreen-exit' viewBox='0 0 16 16'>
+                  <path d='M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5zM0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zm10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4z' />
+                </svg>
+              ) : (
+                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' className='bi bi-fullscreen' viewBox='0 0 16 16'>
+                  <path d='M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z' />
+                </svg>
+              )}
             </button>
             <button
               onClick={() => {
@@ -93,19 +67,26 @@ const Gallery = () => {
             </button>
           </div>
         </div>
-        <div className='img-preview-body'></div>
-        <div className='img-preview-footer'>titulo de la imagen</div>
+        <div className='img-preview-body'>
+          <div className='img-container'>
+            <img src={imgToShow.url} alt={imgToShow.title} />
+          </div>
+        </div>
+        <div className='img-preview-footer'>{imgToShow.title}</div>
       </div>
       <div className='gallery-imgs'>
         {imgs.map((imgInfo, i) => (
-          <Img
-            imgInfo={imgInfo}
-            i={i}
-            key={i}
-            handlingImgPreview={() => {
-              handlingImgPreview(true, imgInfo, i);
+          <div
+            className='img'
+            onClick={() => {
+              handlingImgPreview(true, imgs, i);
             }}
-          />
+            key={i}
+          >
+            <div className='img-container'>
+              <img src={imgInfo.url} alt={imgInfo.title} />
+            </div>
+          </div>
         ))}
       </div>
       <div className='gallery-buttons'>

@@ -50,6 +50,7 @@
       display: flex;
       height: 100%;
       background-color: rgba(242, 255, 202, 0.562);
+      transition: margin 1s;
 
       .carousel-group {
         display: flex;
@@ -77,8 +78,8 @@
 
     button {
       margin: 3px;
-      height: 12px;
-      width: 12px;
+      height: 10px;
+      width: 10px;
       cursor: pointer;
       background-color: lightgray;
       border: none;
@@ -91,6 +92,13 @@
       &:active {
         background-color: rgba(255, 153, 0, 1);
       }
+    }
+  }
+  .carousel-dots {
+    button.active {
+      height: 15px;
+      width: 15px;
+      background-color: rgba(255, 153, 0, 1);
     }
   }
 }

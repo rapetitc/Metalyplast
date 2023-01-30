@@ -1,67 +1,45 @@
 import React, { useEffect, useRef, useState } from "react";
+import { getFilesFrom } from "../../../src/storage";
 import "./Carousel.scss";
 
-import { getFilesFrom } from "../../../src/storage";
-
 const Carousel = () => {
-  let autoPlay = useRef(false);
-  let nextCarrousel = useRef(1); //in seconds
-  const [isCarrouselCharged, setIsCarrouselCharged] = useState(false);
-  const [files, setFiles] = useState([]);
-  const [carouselLength, setCarouselLength] = useState();
-  const [currentCarousel, setCurrentCarousel] = useState();
+  const [imgs, setImgs] = useState([]);
+  const [exeOnce, setExeOnce] = useState(true);
+  const [currentCarousel, setCurrentCarousel] = useState(0);
 
   const handlingCurrentCarousel = (action) => {
-    let newCurrentCarousel;
-    const isNextPrev = action === "next" || action === "prev";
-    if (isNextPrev) {
-      const isNext = action === "next";
-      newCurrentCarousel = isNext ? (currentCarousel >= carouselLength ? 1 : currentCarousel + 1) : currentCarousel <= 1 ? carouselLength : currentCarousel - 1;
+    if (isNaN(action)) {
+      const newCurrentCarousel = action === "next" ? (currentCarousel >= imgs.length ? 1 : currentCarousel + 1) : currentCarousel <= 1 ? imgs.length : currentCarousel - 1;
+      setCurrentCarousel(newCurrentCarousel);
     } else {
-      newCurrentCarousel = action;
+      setCurrentCarousel(action);
     }
-    setCurrentCarousel(newCurrentCarousel);
+  };
 
+  const setCarouselWidth = (length) => {
     const carouselGroups = document.getElementsByClassName("carousel-groups")[0];
-    carouselGroups.style.marginLeft = "-" + (100 * newCurrentCarousel - 100) + "%";
+    carouselGroups.style.width = 100 * length + "%";
   };
 
   useEffect(() => {
-    if (!isCarrouselCharged) {
-      getFilesFrom("media/sliderImgs").then((files) => {
-        setFiles(files);
+    const carouselGroups = document.getElementsByClassName("carousel-groups")[0];
+    if (exeOnce) {
+      getFilesFrom("media/sliderImgs").then((imgs) => {
+        setCarouselWidth(imgs.length);
+        setImgs(imgs);
       });
-
-      if (files.length > 1) {
-        const newCarouselLength = document.getElementsByClassName("carousel-group").length;
-        setCarouselLength(newCarouselLength);
-        setCurrentCarousel(newCarouselLength > 0 ? 1 : 0);
-
-        const carouselGroups = document.getElementsByClassName("carousel-groups")[0];
-        carouselGroups.style.width = 100 * newCarouselLength + "%";
-
-        setIsCarrouselCharged(true);
-      }
-    } else {
-      if (autoPlay.current) {
-        setInterval(() => {
-          handlingCurrentCarousel("next");
-        }, 1000);
-        autoPlay.current = false;
-      }
+      setCurrentCarousel(1);
+      setExeOnce(false);
     }
-  });
 
-  const dots = (i) => {
-    return (
-      <button
-        onClick={() => {
-          handlingCurrentCarousel(i + 1);
-        }}
-        key={i}
-      ></button>
-    );
-  };
+    const interval = setInterval(() => {
+      handlingCurrentCarousel("next");
+    }, 4000);
+
+    carouselGroups.style.marginLeft = `-${(currentCarousel - 1) * 100}%`;
+
+    return () => clearInterval(interval);
+  }, [imgs, currentCarousel]);
 
   return (
     <div className='carousel'>
@@ -87,18 +65,26 @@ const Carousel = () => {
       </div>
       <div className='carousel-body'>
         <div className='carousel-groups'>
-          {files.map((file, i) => {
+          {imgs.map((img, i) => {
             return (
               <div className='carousel-group' key={i}>
-                <img src={file.url} alt={file.name} />
+                <img src={img.url} alt={img.title} />
               </div>
             );
           })}
         </div>
       </div>
       <div className='carousel-dots'>
-        {files.map((url, i) => {
-          return dots(i);
+        {imgs.map((img, i) => {
+          return (
+            <button
+              className={currentCarousel === i + 1 ? "active" : ""}
+              onClick={() => {
+                handlingCurrentCarousel(i + 1);
+              }}
+              key={i}
+            ></button>
+          );
         })}
       </div>
     </div>

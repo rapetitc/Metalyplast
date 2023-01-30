@@ -1,28 +1,25 @@
-.gallery-container {
+div.Gallery {
   width: 100%;
-  //background-color: antiquewhite;
   overflow-y: hidden;
 
   div.img-preview {
     display: flex;
-    position: fixed; //fixed
+    position: fixed;
     top: 0%;
     left: 0%;
-    opacity: 0;
-
     height: 100%;
     width: 100%;
-
     background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
     z-index: -1;
     transition: all 0.3s;
 
     div.img-preview-header {
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-between;
       position: absolute;
       top: 0;
-      justify-content: space-between;
       padding: 10px;
       width: 100%;
       background: rgb(0, 0, 0);
@@ -64,11 +61,6 @@
       align-items: center;
       width: 100%;
       height: 100%;
-      /* position: relative;
-      top: 50%;
-      right: 50%;
-      bottom: 50%;
-      left: 50%; */
 
       div.img-container {
         display: flex;
@@ -95,21 +87,22 @@
       background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 100%);
     }
   }
+  div.img-preview.active {
+    opacity: 1;
+    z-index: 100;
+  }
   div.gallery-imgs {
     display: flex;
     flex-wrap: wrap;
     width: max-content;
-    min-height: 200px;
-    max-height: 400px;
-    overflow-y: hidden;
 
     div.img {
-      width: 200px;
+      width: 225px;
 
       div.img-container {
         margin: 5px;
-        position: relative; /* If you want text inside of it */
-        padding-top: calc(100% - 10px); /* 1:1 Aspect Ratio */
+        position: relative;
+        padding-top: calc(100% - 10px);
         width: calc(100% - 10px);
         border-radius: 10px;
         background-color: white;
@@ -136,7 +129,6 @@
 
     button {
       position: relative;
-      //top: 50%;
       margin: 0 5px;
       height: 35px;
       width: 35px;
@@ -164,39 +156,3 @@
     }
   }
 }
-
-/* @media (min-width: 576px) {
-  .gallery-container {
-    div.gallery-imgs {
-      div.img {
-        width: 33%;
-      }
-    }
-  }
-} */
-
-/* @media (min-width: 768px) {
-  .gallery-container {
-    div.gallery-imgs {
-      div.img {
-        width: 25%;
-      }
-    }
-  }
-} */
-
-/* @media (min-width: 992px) {
-  .gallery-container {
-    div.gallery-imgs {
-      div.img {
-        width: 180px;
-      }
-    }
-  }
-} */
-
-/* @media (min-width: 1200px) {
-} */
-
-/* @media (min-width: 1400px) {
-} */

@@ -7,7 +7,7 @@ import Carousel from "./Carousel/Carousel";
 const Main = () => {
   return (
     <main className='container'>
-      <div className='gallery section' id='gallery'>
+      <div className='gallerySection section' id='gallery'>
         <h2 className='h2'>Galeria</h2>
         <Gallery />
       </div>
@@ -52,9 +52,9 @@ const Main = () => {
             </div>
           </div>
         </div>
-        <div id='map'>
-          <iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.9781329762554!2d-73.129181785226!3d7.128525694852448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e68157bb07bdfb9%3A0xa23e881849deb910!2sSillas%20Don%20Juan!5e0!3m2!1ses-419!2sco!4v1672236520881!5m2!1ses-419!2sco' style={{ border: 0 }} allowFullScreen='' loading='lazy' referrerPolicy='no-referrer-when-downgrade'></iframe>
-        </div>
+      </div>
+      <div className='map'>
+        <iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.9781329762554!2d-73.129181785226!3d7.128525694852448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e68157bb07bdfb9%3A0xa23e881849deb910!2sSillas%20Don%20Juan!5e0!3m2!1ses-419!2sco!4v1672236520881!5m2!1ses-419!2sco' style={{ border: 0 }} allowFullScreen='' loading='lazy' referrerPolicy='no-referrer-when-downgrade'></iframe>
       </div>
     </main>
   );

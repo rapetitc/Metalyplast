@@ -17,4 +17,3 @@ export const getFilesFrom = async (folderpath) => {
   }
   return filesCollection
 }
-

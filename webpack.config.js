@@ -23,7 +23,7 @@ module.exports = {
   entry: './dev/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, '/build'),
+    path: path.join(__dirname, '/build'),
   },
   mode: process.env.NODE_ENV || 'development',
   module: {
