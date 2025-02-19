@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getFileFrom } from "../../src/storage";
+import { getFileFrom } from "../../utils/storage";
 import "./Header.scss";
 
 const Header = () => {

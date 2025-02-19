@@ -20,7 +20,7 @@ const rulesForSASS = {
 
 // CONFIGURATION
 module.exports = {
-  entry: './dev/index.js',
+  entry: './src/index.js',
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, '/build'),
@@ -46,7 +46,7 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, '/dev'),
+      directory: path.join(__dirname, '/src'),
     },
     compress: true,
     port: 9900,

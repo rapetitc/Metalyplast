@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getFilesFrom } from "../../../src/storage";
+import { getFilesFrom } from "../../utils/storage";
 import "./Gallery.scss";
 
 const Gallery = () => {

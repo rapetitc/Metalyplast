@@ -1,5 +1,5 @@
 import { getDownloadURL, listAll, ref } from "firebase/storage";
-import { storage } from "./fbconfig";
+import { storage } from "../config/firebase_config";
 
 export const getFileFrom = async (filepath) => {
   const fileRef = ref(storage, filepath);
